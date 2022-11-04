@@ -69,7 +69,7 @@ chmod +x build.sh
 }
 
 createExampleFiles() {
-    cp /example/* .
+    cp -R /example/* .
 }
 
 buildFailed() {
