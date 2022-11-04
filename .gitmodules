@@ -1,0 +1,3 @@
+[submodule "pandoc-wbh-template"]
+	path = pandoc-wbh-template
+	url = git@github.com:wbh-community/pandoc-wbh-template.git
