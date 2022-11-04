@@ -72,6 +72,13 @@ createExampleFiles() {
     cp /example/* .
 }
 
+buildFailed() {
+    echo -e "\t${RED}failed${NC}!"
+    echo "Reason:"
+    echo $1
+    exit 1
+}
+
 if $init
 then
     echo "Initialize new Project"
@@ -91,10 +98,15 @@ if $build
 then
     echo -n "Create document..."
     now=$(date +"%Y%m%d")
+    
+    if [ ! -f defaults.yaml ]
+    then
+        buildFailed "Couldn't found default.yaml"
+    fi 
 
     if grep -q "^output-file" defaults.yaml
     then
-        pandocrun=$(pandoc -d defaults.yaml)
+        pandocrun=$(pandoc -d defaults.yaml 2>&1 /dev/null)
     else
         extension=$(grep "to:" defaults.yaml| sed -e 's#.*: \(\)#\1#')
         pandocrun=$(pandoc -d defaults.yaml -o $now.$extension 2>&1 /dev/null)
@@ -103,9 +115,7 @@ then
     then
         echo -e "\t${GREEN}done${NC}!"
     else
-        echo -e "\t${RED}failed${NC}!"
-        echo "Reason:"
-        echo "$pandocrun"
+        buildFailed $pandocrun
     fi
 fi
 

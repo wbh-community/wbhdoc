@@ -1,5 +1,5 @@
 # LaTeX #################################################################
-FROM docker.io/pandoc/core:latest as pitcde-latex
+FROM docker.io/pandoc/core:latest as wbhdoc-latex
 
 # NOTE: to maintainers, please keep this listing alphabetical.
 RUN apk --no-cache update && apk --no-cache upgrade \
@@ -37,17 +37,16 @@ RUN echo "binary_x86_64-linuxmusl 1" >> /root/texlive.profile \
   && chmod -R o+w /opt/texlive/texdir/texmf-var
 
 # Puzzle ITC Template integration #########################################
-FROM pitcde-latex as pitcde-pandoc
+FROM wbhdoc-latex as wbhdoc
 LABEL org.opencontainers.image.authors="Sebastian Preisner <kreativmonkey@calyruim.org>"
 
 COPY pandoc-wbh-template /templates
 COPY entrypoint.sh /
 RUN mkdir -p /usr/share/fonts/truetype \
-    && tar -xf /templates/Merriweather.tar.xz -C /usr/share/fonts/truetype/ \
-    && rm -f /templates/Merriweather.tar.xz \
-    && tar -xf /templates/arimo.tar.xz -C /usr/share/fonts/truetype/ \
-    && rm -f /templates/arimo.tar.xz \
-    && mv templates/example /example \
+    && tar -xf /templates/common/Merriweather.tar.xz -C /usr/share/fonts/truetype/ \
+    && tar -xf /templates/common/arimo.tar.xz -C /usr/share/fonts/truetype/ \
+    && rm /templates/common/*.tar.xz
+    && mv /templates/example /example \
     && chmod 0644 -R /templates && chmod 0644 -R example && chmod 0744 /entrypoint.sh \
     && fc-cache -f && rm -rf /var/cache/*
 
