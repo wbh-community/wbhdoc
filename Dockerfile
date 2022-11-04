@@ -131,9 +131,9 @@ COPY entrypoint.sh /
 RUN mkdir -p /usr/share/fonts/truetype \
     && tar -xf /templates/common/Merriweather.tar.xz -C /usr/share/fonts/truetype/ \
     && tar -xf /templates/common/arimo.tar.xz -C /usr/share/fonts/truetype/ \
-    && rm /templates/common/*.tar.xz
+    && rm /templates/common/Merriweather.tar.xz /templates/common/arimo.tar.xz \
     && mv /templates/example /example \
-    && chmod 0644 -R /templates && chmod 0644 -R example && chmod 0744 /entrypoint.sh \
+    && chmod 0644 -R /templates && chmod 0644 -R /example && chmod 0744 /entrypoint.sh \
     && fc-cache -f && rm -rf /var/cache/*
 
 WORKDIR /data
