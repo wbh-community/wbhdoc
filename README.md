@@ -10,6 +10,23 @@ Um den Container nutzen zu können ist eine [Docker](https://docs.docker.com/des
 Soweit nicht anders beschrieben, können alle Kommandos mit `docker` durch `podman` ausgetauscht werden.
 
 1. Image Download: `docker pull quay.io/wbh-community/wbhdoc:latest`
+2. Aufruf des Container
+   - Docker: `docker run -it --rm --volume $(pwd):/data:Z --user $(id -u):$(id -g) quay.io/wbh-community/wbhdoc:latest <option>`
+   - Podman: `podman run -it --rm --volume $(pwd):/data:Z quay.io/wbh-community/wbhdoc:latest <option>`
+
+**Tip:** Richte dir ein alias für den Containeraufrum ein, dann beschränkt sich der Aufruf auf den Alias + die übergabe der Option:
+
+```bash
+# Bash: folgende Zeile zur bash.rc henzufügen
+alias wbhdoc=`<containeraufruf>`
+
+# Fish
+alias --save wbhdoc `<containeraufruf>`
+
+# Nutzung:
+wbhdoc -i # zum initialisieren
+wbhdoc -b # zum bauen des Dokuments
+```
 
 ### Dokumente Initialisieren
 
