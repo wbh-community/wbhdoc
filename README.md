@@ -1,5 +1,7 @@
 # wbhdoc
 
+[![renovate](https://img.shields.io/badge/renovate-enabled?style=for-the-badge&logo=renovatebot&logoColor=white&color=brightgreen)](https://github.com/renovatebot/renovate)
+
 Der wbhdoc Container dient zur einfachen Erstellung von Hausarbeiten und Abschlussarbeiten mit einem vorgefertigten Template welches den Leitlinien entspricht. 
 Dabei bringt der Container alle notwendigen abhängigkeiten mit um aus einem Markdown File ein PDF zu erzeugen. Die Anwendung beschränkt sich dabei auf zwei einfache
 Parameter, welche beim Aufruf des Containers mitgegeben werden. 
