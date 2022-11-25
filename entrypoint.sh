@@ -101,7 +101,7 @@ then
     
     if [ ! -f defaults.yaml ]
     then
-        buildFailed "Couldn't found default.yaml"
+        buildFailed "Couldn't find default.yaml"
     fi 
 
     if grep -q "^output-file" defaults.yaml
