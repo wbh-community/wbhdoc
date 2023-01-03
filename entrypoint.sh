@@ -75,7 +75,7 @@ createExampleFiles() {
 buildFailed() {
     echo -e "\t${RED}failed${NC}!"
     echo "Reason:"
-    echo $1
+    echo "$@"
     exit 1
 }
 
