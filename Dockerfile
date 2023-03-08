@@ -1,3 +1,5 @@
+# This file was inspired by the original pandoc Dockerfile
+# https://github.com/pandoc/dockerfiles/blob/master/alpine/Dockerfile
 # Base ##################################################################
 ARG base_image_version=3.17
 FROM alpine:$base_image_version AS alpine-builder-base
@@ -27,7 +29,7 @@ RUN cabal --version \
 
 # Builder ###############################################################
 FROM alpine-builder-base as alpine-builder
-ARG pandoc_commit=master
+ARG pandoc_commit=3.1.1
 RUN git clone --branch=$pandoc_commit --depth=1 --quiet \
   https://github.com/jgm/pandoc /usr/src/pandoc
 
@@ -42,7 +44,7 @@ RUN test -n "$without_crossref" || \
     printf "extra-packages: pandoc-crossref\n" > cabal.project.local;
 
 # Additional projects to compile alongside pandoc
-ARG extra_packages="pandoc-crossref"
+ARG extra_packages="pandoc-cli pandoc-crossref"
 
 # Build pandoc and pandoc-crossref. The `allow-newer` is required for
 # when pandoc-crossref has not been updated yet, but we want to build
@@ -53,7 +55,7 @@ RUN cabal v2-update \
       --disable-tests \
       --disable-bench \
       --jobs \
-      . pandoc-cli $extra_packages
+      . $extra_packages
 
 # Cabal's exec stripping doesn't seem to work reliably, let's do it here.
 RUN find dist-newstyle \
@@ -63,7 +65,7 @@ RUN find dist-newstyle \
 
 # Minimal ###############################################################
 FROM alpine:$base_image_version AS alpine-minimal
-ARG pandoc_version=edge
+ARG pandoc_version=3.1.1
 ARG lua_version=5.4
 LABEL maintainer='Albert Krewinkel <albert+pandoc@zeitkraut.de>'
 LABEL org.pandoc.maintainer='Albert Krewinkel <albert+pandoc@zeitkraut.de>'
