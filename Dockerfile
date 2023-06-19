@@ -1,5 +1,5 @@
 # LaTeX #################################################################
-FROM docker.io/pandoc/core:latest as wbhdoc-latex
+FROM docker.io/pandoc/core:3.1.1.0 as wbhdoc-latex
 
 # NOTE: to maintainers, please keep this listing alphabetical.
 RUN apk --no-cache update && apk --no-cache upgrade \
@@ -36,7 +36,7 @@ RUN echo "binary_x86_64-linuxmusl 1" >> /root/texlive.profile \
   && TERM=dumb luaotfload-tool --update \
   && chmod -R o+w /opt/texlive/texdir/texmf-var
 
-# Puzzle ITC Template integration #########################################
+# WBHDoc template integration #########################################
 FROM wbhdoc-latex as wbhdoc
 LABEL org.opencontainers.image.authors="Sebastian Preisner <kreativmonkey@calyruim.org>"
 
