@@ -29,7 +29,7 @@ RUN cabal --version \
 
 # Builder ###############################################################
 FROM alpine-builder-base as alpine-builder
-ARG pandoc_commit=3.1.1
+ARG pandoc_commit=3.1.1.0
 RUN git clone --branch=$pandoc_commit --depth=1 --quiet \
   https://github.com/jgm/pandoc /usr/src/pandoc
 
@@ -65,7 +65,7 @@ RUN find dist-newstyle \
 
 # Minimal ###############################################################
 FROM alpine:$base_image_version AS alpine-minimal
-ARG pandoc_version=3.1.1
+ARG pandoc_version=3.1.1.0
 ARG lua_version=5.4
 LABEL maintainer='Albert Krewinkel <albert+pandoc@zeitkraut.de>'
 LABEL org.pandoc.maintainer='Albert Krewinkel <albert+pandoc@zeitkraut.de>'
