@@ -36,7 +36,7 @@ RUN echo "binary_x86_64-linuxmusl 1" >> /root/texlive.profile \
   && TERM=dumb luaotfload-tool --update \
   && chmod -R o+w /opt/texlive/texdir/texmf-var
 
-# Puzzle ITC Template integration #########################################
+# WBHDoc template integration #########################################
 FROM wbhdoc-latex as wbhdoc
 LABEL org.opencontainers.image.authors="Sebastian Preisner <kreativmonkey@calyruim.org>"
 
