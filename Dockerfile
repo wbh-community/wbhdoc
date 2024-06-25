@@ -1,5 +1,5 @@
 # LaTeX #################################################################
-FROM docker.io/pandoc/core:3.1.1.0 as wbhdoc-latex
+FROM docker.io/pandoc/core:3.2.1.0 as wbhdoc-latex
 
 # NOTE: to maintainers, please keep this listing alphabetical.
 RUN apk --no-cache update && apk --no-cache upgrade \
